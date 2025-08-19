@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Línea del Tiempo - Transformación Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .instructions h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .instructions ul {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        
+        .timeline-container {
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4ca1af, #2c3e50);
+            border-radius: 10px;
+        }
+        
+        .milestone {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+            width: 100%;
+        }
+        
+        .milestone:nth-child(even) {
+            justify-content: flex-start;
+        }
+        
+        .milestone:nth-child(odd) {
+            justify-content: flex-end;
+        }
+        
+        .milestone-content {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 45%;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .milestone-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .milestone:nth-child(odd) .milestone-content {
+            background: linear-gradient(to right, #e3f2fd, #bbdefb);
+        }
+        
+        .milestone:nth-child(even) .milestone-content {
+            background: linear-gradient(to left, #f1f8e9, #dcedc8);
+        }
+        
+        .year {
+            position: absolute;
+            top: 15px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 0 0 6px white;
+        }
+        
+        .milestone:nth-child(odd) .year {
+            left: -35px;
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+        }
+        
+        .milestone:nth-child(even) .year {
+            right: -35px;
+            background: linear-gradient(135deg, #f44336, #b71c1c);
+        }
+        
+        .milestone-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .milestone-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .milestone-description {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .milestone-impact {
+            font-style: italic;
+            color: #546e7a;
+            border-left: 3px solid #4ca1af;
+            padding-left: 10px;
+        }
+        
+        .reflection {
+            background: linear-gradient(to right, #ffeb3b, #ff9800);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px auto;
+            max-width: 900px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .reflection h2 {
+            color: #5d4037;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .reflection p {
+            line-height: 1.7;
+            text-align: justify;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #84ffff, #18ffff);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .milestone {
+                justify-content: flex-start !important;
+                padding-left: 70px;
+            }
+            
+            .milestone-content {
+                width: 100% !important;
+            }
+            
+            .year {
+                left: 0 !important;
+                right: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Línea del Tiempo de la Transformación Digital</h1>
+            <p class="subtitle">Evolución de la tecnología y su impacto en la sociedad</p>
+        </header>
+        
+        <section class="instructions">
+            <h2>Instrucciones de la Actividad</h2>
+            <ul>
+                <li>Elabora una línea del tiempo con al menos 5 hitos importantes</li>
+                <li>Incluye año, descripción breve e impacto en la vida diaria o empresas</li>
+                <li>Agrega una reflexión personal sobre qué hito ha transformado más tu vida</li>
+            </ul>
+        </section>
+        
+        <section class="timeline-container">
+            <div class="timeline">
+                <!-- Hito 1 -->
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="year">1970s</div>
+                        <div class="milestone-icon"><i class="fas fa-desktop"></i></div>
+                        <h3 class="milestone-title">Computadoras Personales</h3>
+                        <p class="milestone-description">Apple II, IBM PC, Commodore 64. Democratización del acceso a la computación.</p>
+                        <p class="milestone-impact">Impacto: Permitió que personas comunes tuvieran poder de computación en sus hogares, revolucionando el trabajo y el entretenimiento.</p>
+                    </div>
+                </div>
+                
+                <!-- Hito 2 -->
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="year">1990s</div>
+                        <div class="milestone-icon"><i class="fas fa-globe"></i></div>
+                        <h3 class="milestone-title">Internet Comercial</h3>
+                        <p class="milestone-description">WWW, navegadores web, correo electrónico. Conexión global e información instantánea.</p>
+                        <p class="milestone-impact">Impacto: Revolucionó la comunicación, el comercio y el acceso al conocimiento, creando la era de la información.</p>
+                    </div>
+                </div>
+                
+                <!-- Hito 3 -->
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="year">2007</div>
+                        <div class="milestone-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3 class="milestone-title">Smartphones</h3>
+                        <p class="milestone-description">iPhone, Android. Computación móvil y aplicaciones accesibles desde cualquier lugar.</p>
+                        <p class="milestone-impact">Impacto: Puso el mundo en nuestro bolsillo, cambiando la forma de comunicarnos, trabajar y acceder a información.</p>
+                    </div>
+                </div>
+                
+                <!-- Hito 4 -->
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="year">2004</div>
+                        <div class="milestone-icon"><i class="fas fa-share-alt"></i></div>
+                        <h3 class="milestone-title">Redes Sociales</h3>
+                        <p class="milestone-description">Facebook, Twitter, Instagram. Plataformas de comunicación masiva y comunidades globales.</p>
+                        <p class="milestone-impact">Impacto: Transformó las relaciones sociales, el marketing y la difusión de información, creando una sociedad hiperconectada.</p>
+                    </div>
+                </div>
+                
+                <!-- Hito 5 -->
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="year">2020s</div>
+                        <div class="milestone-icon"><i class="fas fa-brain"></i></div>
+                        <h3 class="milestone-title">Inteligencia Artificial</h3>
+                        <p class="milestone-description">ChatGPT, GPT-4, asistentes inteligentes. Automatización de procesos cognitivos y creativos.</p>
+                        <p class="milestone-impact">Impacto: Está revolucionando todos los sectores, desde la educación hasta la medicina, con herramientas que amplifican las capacidades humanas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="reflection">
+            <h2>Reflexión Personal</h2>
+            <p>Considero que la <span class="highlight">Inteligencia Artificial</span> ha sido el hito que más ha transformado mi forma de estudiar y trabajar. La capacidad de acceder a información procesada instantáneamente, generar contenido, resolver problemas complejos y automatizar tareas repetitivas ha revolucionado completamente mi productividad. A diferencia de hitos anteriores que mejoraron el acceso a la información, la IA transforma la forma en que procesamos y creamos conocimiento, representando un salto cualitativo en la interacción humano-tecnología. Herramientas como los asistentes de IA me permiten aprender de manera más eficiente y abordar proyectos que antes requerían mucho más tiempo y recursos.</p>
+        </section>
+        
+        <footer>
+            <p>Actividad: Línea del Tiempo de la Transformación Digital - CL-2025</p>
+        </footer>
+    </div>
+</body>
+</html>
